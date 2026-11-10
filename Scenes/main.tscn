@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://fop01yrfd6on"]
+
+[ext_resource type="PackedScene" uid="uid://cxvgn5jfhfjca" path="res://Scenes/ball.tscn" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://bv34ngmorseus" path="res://Scripts/main.gd" id="1_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://dfsl1qlshxm5n" path="res://Scenes/paddle.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://chd3y6a3heglb" path="res://Scenes/killzone.tscn" id="3_8gbba"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6jwbw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_72y3c"]
+normal = Vector2(1, -4.371139e-08)
+distance = -2.2737368e-13
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gdgv4"]
+normal = Vector2(4.3711392e-08, 1)
+distance = 3.496911e-07
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bo1nx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_igqr0"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_p4vf7"]
+font_size = 32
+
+[node name="Main" type="Node2D" unique_id=923926046]
+script = ExtResource("1_jjvhh")
+
+[node name="Ball" parent="." unique_id=514169216 instance=ExtResource("1_bo1nx")]
+position = Vector2(560, 500)
+sleeping = true
+
+[node name="Paddle" parent="." unique_id=1508533203 instance=ExtResource("2_8gbba")]
+position = Vector2(560, 581)
+
+[node name="Score" type="Label" parent="Paddle" unique_id=1216697653]
+visible = false
+offset_left = -80.0
+offset_top = 3.0
+offset_right = 80.0
+offset_bottom = 35.0
+text = "Life: 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="walls" type="StaticBody2D" parent="." unique_id=1160835026]
+rotation = 1.5707964
+collision_layer = 3
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls" unique_id=1592705419]
+position = Vector2(320, -1.3987645e-05)
+shape = SubResource("WorldBoundaryShape2D_6jwbw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="walls" unique_id=850513690]
+position = Vector2(-2.2729922e-05, -520)
+shape = SubResource("WorldBoundaryShape2D_72y3c")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="walls" unique_id=1705355736]
+position = Vector2(319.99994, -1152)
+shape = SubResource("WorldBoundaryShape2D_gdgv4")
+
+[node name="killzone" parent="." unique_id=2135253598 instance=ExtResource("3_8gbba")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=1240892405]
+position = Vector2(576, 648)
+shape = SubResource("WorldBoundaryShape2D_bo1nx")
+
+[node name="StartTimer" type="Timer" parent="." unique_id=56495375]
+autostart = true
+
+[node name="Label" type="Label" parent="StartTimer" unique_id=1960562869]
+offset_left = 536.0
+offset_top = 464.0
+offset_right = 584.0
+offset_bottom = 487.0
+text = "3"
+horizontal_alignment = 1
+
+[node name="ActualScore" type="Label" parent="." unique_id=1371626776]
+offset_left = 112.0
+offset_top = 480.0
+offset_right = 360.0
+offset_bottom = 520.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_igqr0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Highscore" type="Label" parent="." unique_id=1334694709]
+visible = false
+offset_left = 808.0
+offset_top = 480.0
+offset_right = 1064.0
+offset_bottom = 528.0
+text = "Highscore: 0"
+label_settings = SubResource("LabelSettings_p4vf7")
+
+[connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

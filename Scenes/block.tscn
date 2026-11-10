@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bfha1njb2uv2l"]
+
+[ext_resource type="Script" uid="uid://ctirfplh5gnw6" path="res://Scenes/block.gd" id="1_ejx3s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igqr0"]
+size = Vector2(64, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8o1l4"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Block" type="StaticBody2D" unique_id=1499022615]
+script = ExtResource("1_ejx3s")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1112018157]
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1696749214]
+shape = SubResource("RectangleShape2D_igqr0")
+
+[node name="Label" type="Label" parent="." unique_id=1771511972]
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+text = "1"
+label_settings = SubResource("LabelSettings_8o1l4")
+horizontal_alignment = 1
+vertical_alignment = 1
